@@ -36,6 +36,13 @@ class Ad
     private $body;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="author", type="string", length=255)
+     */
+    private $author;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="publication_time", type="datetimetz")
@@ -97,6 +104,14 @@ class Ad
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 
     /**
