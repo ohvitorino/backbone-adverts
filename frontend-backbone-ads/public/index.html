@@ -3,16 +3,32 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Ads4every1</title>
+
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/skeleton.css"/>
+    <link rel="stylesheet" href="css/ads4every1.css"/>
 </head>
 <body>
 
-<div id="adList"></div>
+<div class="container">
+    <div id="adList">
+        <div id="ads">
+            <form action="#" id="addAd">
+                <label for="txtTitle">Title:&nbsp;</label><input type="text" id="txtTitle" name="title"/>
+                <label for="txtBody">Content:&nbsp;</label><input type="text" id="txtBody" name="body"/>
+                <label for="txtAuthor">Author:&nbsp;</label><input type="text" id="txtAuthor" name="author"/>
+                <button id="btnAdd">Add</button>
+            </form>
+        </div>
+
+    </div>
+</div>
 
 <!-- Our underscore templates -->
 <script type="text/template" id="adTemplate">
     <ul>
         <li><%= title %></li>
-        <li><%= content %></li>
+        <li><%= body %></li>
         <li><%= author %></li>
         <li><%= publication_time %></li>
     </ul>

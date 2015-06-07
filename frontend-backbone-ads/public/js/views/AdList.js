@@ -10,6 +10,13 @@ app.AdListView = Backbone.View.extend({
     initialize: function (initialAds) {
         this.collection = new app.AdList(initialAds);
         this.render();
+
+        // The events the object is listening to
+        this.listenTo(this.collection, 'add', this.renderAd);
+    },
+
+    events: {
+        "click #btnAdd": "addAd"
     },
 
     render: function () {
@@ -24,5 +31,24 @@ app.AdListView = Backbone.View.extend({
         });
 
         this.$el.append(adView.render().el);
+    },
+
+    // Event Handlers
+    addAd: function (e) {
+        e.preventDefault();
+
+        var formData = {};
+
+        $("#addAd").children("input").each(function (i, el) {
+            var inputValue = $(el).val();
+            if ( inputValue != "") {
+                formData[el.name] = inputValue;
+            }
+        });
+
+        // Add default publication time
+        formData['publication_time'] = new Date();
+
+        this.collection.add(new app.Ad(formData));
     }
 });
