@@ -10,19 +10,19 @@
 </head>
 <body>
 
-<div class="container">
-    <div id="adList">
-        <div id="ads">
-            <form action="#" id="addAd">
-                <label for="txtTitle">Title:&nbsp;</label><input type="text" id="txtTitle" name="title"/>
-                <label for="txtBody">Content:&nbsp;</label><input type="text" id="txtBody" name="body"/>
-                <label for="txtAuthor">Author:&nbsp;</label><input type="text" id="txtAuthor" name="author"/>
-                <button id="btnAdd">Add</button>
-            </form>
-        </div>
 
+<div id="adList" class="container">
+    <div id="ads" class="row">
+        <form action="#" id="addAd" class="twelve columns">
+            <label for="txtTitle">Title:&nbsp;</label><input type="text" id="txtTitle" name="title"/>
+            <label for="txtBody">Content:&nbsp;</label><input type="text" id="txtBody" name="body"/>
+            <label for="txtAuthor">Author:&nbsp;</label><input type="text" id="txtAuthor" name="author"/>
+            <button id="btnAdd">Add</button>
+        </form>
     </div>
+
 </div>
+
 
 <!-- Our underscore templates -->
 <script type="text/template" id="adTemplate">
