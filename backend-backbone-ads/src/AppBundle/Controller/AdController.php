@@ -13,7 +13,7 @@ use AppBundle\Form\AdType;
 /**
  * Ad controller.
  *
- * @Route("/ad")
+ * @Route("/ads")
  */
 class AdController extends Controller
 {
