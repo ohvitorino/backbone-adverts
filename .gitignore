@@ -1,42 +1,42 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Symfony template
 # Cache and logs (Symfony2)
-/backend-backbone-ads/app/cache/*
-/backend-backbone-ads/app/logs/*
-!backend-backbone-ads/app/cache/.gitkeep
-!backend-backbone-ads/app/logs/.gitkeep
+/api/app/cache/*
+/api/app/logs/*
+!api/app/cache/.gitkeep
+!api/app/logs/.gitkeep
 
 # Cache and logs (Symfony3)
-/backend-backbone-ads/var/cache/*
-/backend-backbone-ads/var/logs/*
-!backend-backbone-ads/var/cache/.gitkeep
-!backend-backbone-ads/var/logs/.gitkeep
+/api/var/cache/*
+/api/var/logs/*
+!api/var/cache/.gitkeep
+!api/var/logs/.gitkeep
 
 # Parameters
-/backend-backbone-ads/app/config/parameters.yml
-/backend-backbone-ads/app/config/parameters.ini
+/api/app/config/parameters.yml
+/api/app/config/parameters.ini
 
 # Managed by Composer
-/backend-backbone-ads/app/bootstrap.php.cache
-/backend-backbone-ads/var/bootstrap.php.cache
-/backend-backbone-ads/bin/*
-!backend-backbone-ads/bin/console
-!backend-backbone-ads/bin/symfony_requirements
-/backend-backbone-ads/vendor/
+/api/app/bootstrap.php.cache
+/api/var/bootstrap.php.cache
+/api/bin/*
+!api/bin/console
+!api/bin/symfony_requirements
+/api/vendor/
 
 # Assets and user uploads
-/backend-backbone-ads/web/bundles/
-/backend-backbone-ads/web/uploads/
+/api/web/bundles/
+/api/web/uploads/
 
 # PHPUnit
-/backend-backbone-ads/app/phpunit.xml
-/backend-backbone-ads/phpunit.xml
+/api/app/phpunit.xml
+/api/phpunit.xml
 
 # Build data
-/backend-backbone-ads/build/
+/api/build/
 
 # Composer PHAR
-/backend-backbone-ads/composer.phar
+/api/composer.phar
 
 
 ### JetBrains template
@@ -88,4 +88,4 @@ crashlytics.properties
 crashlytics-build.properties
 
 ## My stuff
-frontend-backbone-ads/bower_components
+web/bower_components
