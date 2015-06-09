@@ -50,5 +50,14 @@ app.AdListView = Backbone.View.extend({
         formData['publication_time'] = new Date();
 
         this.collection.add(new app.Ad(formData));
+
+        // This clear form for next insertion
+        this.clearFormData();
+    },
+
+    clearFormData: function () {
+        $("#addAd").children("input").each(function(i, el) {
+            $(el).val('');
+        });
     }
 });
