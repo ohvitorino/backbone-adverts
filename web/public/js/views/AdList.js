@@ -44,7 +44,7 @@ app.AdListView = Backbone.View.extend({
 
         $("#addAd").children("input").each(function (i, el) {
             var inputValue = $(el).val();
-            if (inputValue != "") {
+            if ( inputValue != "") {
                 formData[el.name] = inputValue;
             }
         });
@@ -59,19 +59,17 @@ app.AdListView = Backbone.View.extend({
         this.clearFormData();
     },
 
-    searchAds: function (e) {
+    searchAds: function(e) {
         e.preventDefault();
 
         var searchText = $('#txtSearch').val();
 
-        this.collection.filter(function (ad) {
-            return ad.get('title').includes(searchText) || ad.get('body').includes(searchText);
-        });
+
 
     },
 
     clearFormData: function () {
-        $("#addAd").children("input").each(function (i, el) {
+        $("#addAd").children("input").each(function(i, el) {
             $(el).val('');
         });
     }
