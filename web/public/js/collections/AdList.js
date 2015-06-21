@@ -7,5 +7,5 @@ var app = app || {};
 app.AdList = Backbone.Collection.extend({
     model: app.Ad,
 
-    url: "api.backboneads.local/ads"
+    url: "/api/ads"
 });

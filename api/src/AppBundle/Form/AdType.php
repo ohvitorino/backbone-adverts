@@ -17,6 +17,7 @@ class AdType extends AbstractType
         $builder
             ->add('title')
             ->add('body')
+            ->add('author')
             ->add('publicationTime')
         ;
     }

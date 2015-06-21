@@ -9,6 +9,6 @@ app.Ad = Backbone.Model.extend({
         title: 'anonymous',
         body: 'No content',
         author: 'anonymous@nowhere.net',
-        published_time: new Date()
+        publicationTime: new Date()
     }
 });

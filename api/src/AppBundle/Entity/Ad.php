@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\AdRepository")
  */
-class Ad
+class Ad implements \JsonSerializable
 {
     /**
      * @var integer
@@ -115,6 +115,14 @@ class Ad
     }
 
     /**
+     * @param string $author
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+    }
+
+    /**
      * Set publicationTime
      *
      * @param \DateTime $publicationTime
@@ -135,5 +143,24 @@ class Ad
     public function getPublicationTime()
     {
         return $this->publicationTime;
+    }
+
+
+    /**
+     * (PHP 5 &gt;= 5.4.0)<br/>
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     */
+    function jsonSerialize()
+    {
+        return array(
+            "id" => $this->id,
+            "title" => $this->title,
+            "body" => $this->body,
+            "author" => $this->author,
+            "publishedTime" => $this->publicationTime
+        );
     }
 }

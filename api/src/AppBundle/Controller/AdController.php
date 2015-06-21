@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -23,7 +24,6 @@ class AdController extends Controller
      *
      * @Route("/", name="ad")
      * @Method("GET")
-     * @Template()
      */
     public function indexAction()
     {
@@ -31,16 +31,18 @@ class AdController extends Controller
 
         $entities = $em->getRepository('AppBundle:Ad')->findAll();
 
-        return array(
-            'entities' => $entities,
+        return new JsonResponse(
+            $entities
         );
     }
+
     /**
      * Creates a new Ad entity.
      *
      * @Route("/", name="ad_create")
      * @Method("POST")
-     * @Template("AppBundle:Ad:new.html.twig")
+     * @param Request $request
+     * @return JsonResponse
      */
     public function createAction(Request $request)
     {
@@ -53,13 +55,10 @@ class AdController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ad_show', array('id' => $entity->getId())));
+            return new JsonResponse($entity);
         }
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        return new JsonResponse(null, 404);
     }
 
     /**
@@ -71,32 +70,18 @@ class AdController extends Controller
      */
     private function createCreateForm(Ad $entity)
     {
-        $form = $this->createForm(new AdType(), $entity, array(
-            'action' => $this->generateUrl('ad_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new AdType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ad_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
-    }
-
-    /**
-     * Displays a form to create a new Ad entity.
-     *
-     * @Route("/new", name="ad_new")
-     * @Method("GET")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Ad();
-        $form   = $this->createCreateForm($entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
     }
 
     /**
@@ -105,6 +90,8 @@ class AdController extends Controller
      * @Route("/{id}", name="ad_show")
      * @Method("GET")
      * @Template()
+     * @param $id
+     * @return array
      */
     public function showAction($id)
     {
@@ -119,62 +106,43 @@ class AdController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-     * Displays a form to edit an existing Ad entity.
+     * Creates a form to edit a Ad entity.
      *
-     * @Route("/{id}/edit", name="ad_edit")
-     * @Method("GET")
-     * @Template()
+     * @param Ad $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
      */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Ad')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Ad entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-    * Creates a form to edit a Ad entity.
-    *
-    * @param Ad $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
     private function createEditForm(Ad $entity)
     {
-        $form = $this->createForm(new AdType(), $entity, array(
-            'action' => $this->generateUrl('ad_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new AdType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('ad_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
+
     /**
      * Edits an existing Ad entity.
      *
      * @Route("/{id}", name="ad_update")
      * @Method("PUT")
      * @Template("AppBundle:Ad:edit.html.twig")
+     * @param Request $request
+     * @param $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function updateAction(Request $request, $id)
     {
@@ -197,11 +165,12 @@ class AdController extends Controller
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Ad entity.
      *
@@ -241,7 +210,6 @@ class AdController extends Controller
             ->setAction($this->generateUrl('ad_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

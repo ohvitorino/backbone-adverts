@@ -10,8 +10,15 @@
 </head>
 <body>
 
-
 <div id="adList" class="container">
+
+    <div class="row" id="search">
+        <form action="#" class="six columns">
+            <input type="text" class="" id="txtSearch"/>
+            <button class="button-primary" id="btnSearch">Search</button>
+        </form>
+    </div>
+
     <div id="ads" class="row">
         <form action="#" id="addAd" class="twelve columns">
             <label for="txtTitle">Title:&nbsp;</label><input type="text" id="txtTitle" name="title"/>
@@ -30,7 +37,7 @@
         <li><%= title %></li>
         <li><%= body %></li>
         <li><%= author %></li>
-        <li><%= publication_time %></li>
+        <li><%= publicationTime %></li>
     </ul>
 </script>
 

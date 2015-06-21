@@ -8,15 +8,18 @@ app.AdListView = Backbone.View.extend({
     el: '#adList',
 
     initialize: function (initialAds) {
-        this.collection = new app.AdList(initialAds);
+        this.collection = new app.AdList();
+        this.collection.fetch({reset: true});
         this.render();
 
         // The events the object is listening to
         this.listenTo(this.collection, 'add', this.renderAd);
+        this.listenTo(this.collection, 'reset', this.render);
     },
 
     events: {
-        "click #btnAdd": "addAd"
+        "click #btnAdd": "addAd",
+        "click #btnSearch": "searchAds"
     },
 
     render: function () {
@@ -41,22 +44,34 @@ app.AdListView = Backbone.View.extend({
 
         $("#addAd").children("input").each(function (i, el) {
             var inputValue = $(el).val();
-            if ( inputValue != "") {
+            if (inputValue != "") {
                 formData[el.name] = inputValue;
             }
         });
 
         // Add default publication time
-        formData['publication_time'] = new Date();
+        formData['publicationTime'] = new Date();
 
-        this.collection.add(new app.Ad(formData));
+        //this.collection.add(new app.Ad(formData));
+        this.collection.create(formData);
 
         // This clear form for next insertion
         this.clearFormData();
     },
 
+    searchAds: function (e) {
+        e.preventDefault();
+
+        var searchText = $('#txtSearch').val();
+
+        this.collection.filter(function (ad) {
+            return ad.get('title').includes(searchText) || ad.get('body').includes(searchText);
+        });
+
+    },
+
     clearFormData: function () {
-        $("#addAd").children("input").each(function(i, el) {
+        $("#addAd").children("input").each(function (i, el) {
             $(el).val('');
         });
     }
